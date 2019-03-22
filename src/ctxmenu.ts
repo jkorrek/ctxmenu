@@ -22,6 +22,7 @@ export interface CTXMAction extends CTXMInteractive {
 export interface CTXMAnchor extends CTXMInteractive {
     href: string;
     target?: string;
+    download?: string | boolean;
 }
 
 export interface CTXMSubMenu extends CTXMInteractive {
@@ -181,7 +182,14 @@ class ContextMenu implements CTXMenuSingleton {
                             li.addEventListener("click", item.action);
                         }
                         else if (ContextMenu.itemIsAnchor(item)) {
-                            li.innerHTML = `<a href="${item.href}" target="${item.target || ""}">${item.text}</a>`;
+                            let download = "";
+                            if (item.download) {
+                                download += "download";
+                                if (typeof item.download === "string") {
+                                    download += `="${item.download}"`;
+                                }
+                            }
+                            li.innerHTML = `<a href="${item.href}" target="${item.target || ""}" ${download}>${item.text}</a>`;
                         }
                         else {
                             if (item.subMenu.length === 0) {

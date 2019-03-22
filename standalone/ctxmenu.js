@@ -138,7 +138,14 @@ var ContextMenu = function () {
                         if (ContextMenu.itemIsAction(item)) {
                             li.addEventListener("click", item.action);
                         } else if (ContextMenu.itemIsAnchor(item)) {
-                            li.innerHTML = "<a href=\"" + item.href + "\" target=\"" + (item.target || "") + "\">" + item.text + "</a>";
+                            var download = "";
+                            if (item.download) {
+                                download += "download";
+                                if (typeof item.download === "string") {
+                                    download += "=\"" + item.download + "\"";
+                                }
+                            }
+                            li.innerHTML = "<a href=\"" + item.href + "\" target=\"" + (item.target || "") + "\" " + download + ">" + item.text + "</a>";
                         } else {
                             if (item.subMenu.length === 0) {
                                 li.className = "disabled submenu";

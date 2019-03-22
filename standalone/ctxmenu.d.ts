@@ -15,6 +15,7 @@ declare module "ctxmenu" {
     export interface CTXMAnchor extends CTXMInteractive {
         href: string;
         target?: string;
+        download?: string | boolean;
     }
     export interface CTXMSubMenu extends CTXMInteractive {
         subMenu: CTXMenu;
